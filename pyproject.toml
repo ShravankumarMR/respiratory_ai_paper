@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "respiratory-ai"
+version = "0.1.0"
+description = "Production-ready respiratory sound classification pipeline with Coswara data, EDA, cleaning, and attention-based training."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "scikit-learn>=1.4",
+    "scipy>=1.11",
+    "torch>=2.0",
+    "torchaudio>=2.0",
+    "soundfile>=0.12",
+    "pytest>=7.0",
+]
+
+[tool.setuptools]
+packages = ["respiratory_ai", "respiratory_ai.data", "respiratory_ai.eda", "respiratory_ai.training"]

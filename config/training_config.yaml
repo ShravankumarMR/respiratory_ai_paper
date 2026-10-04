@@ -1,0 +1,38 @@
+data_dir: "coswara-data"
+sound_types:
+  - "breathing_deep"
+  - "cough_heavy"
+  - "cough_shallow"
+  - "vowel_a"
+  - "vowel_o"
+  - "counting_normal"
+sr: 16000
+n_mels: 64
+max_duration: 5.0
+batch_size: 32
+num_epochs: 30
+learning_rate: 0.0002
+weight_decay: 0.02
+test_size: 0.2
+random_seed: 42
+output_dir: "artifacts"
+save_name: "respiro_attn_best.pth"
+num_workers: 0
+# Trim leading/trailing near-silence so the cough burst is centered in the 5s window.
+vad_trim: true
+# SpecAugment (time/freq masking) during training to reduce overfitting on the small dataset.
+use_specaugment: true
+# Smooths hard labels to account for subjective heavy/shallow cough self-labeling.
+label_smoothing: 0.1
+# Upweights cough_heavy/cough_shallow loss contribution to counter their higher confusion rate.
+cough_class_weight: 1.5
+# Upweights counting_normal to offset the model over-predicting counting_fast.
+counting_class_weight: 1.3
+# Uses inverse-frequency sampling so underrepresented respiratory classes appear more often during training.
+use_weighted_sampler: true
+# Prevents unstable early updates by linearly warming up LR before cosine decay.
+warmup_epochs: 3
+# Stops over-training once validation score plateaus.
+early_stopping_patience: 10
+# Regularizes the classifier head to reduce overfitting on the small dataset.
+dropout: 0.3
